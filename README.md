@@ -1,2 +1,2 @@
-# iptools-jquery-utils
+# iptools-utils
 Common utility bundle
