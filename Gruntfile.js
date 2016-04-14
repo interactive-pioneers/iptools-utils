@@ -120,5 +120,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['build']);
 
-  /*grunt.registerTask('travis', ['concurrent:qa']);*/
+  grunt.registerTask('travis', ['concurrent:qa']);
 };
