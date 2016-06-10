@@ -71,6 +71,11 @@ module.exports = function(grunt) {
         tasks: [
           'uglify'
         ]
+      },
+      docs: {
+        tasks: [
+          'jsdoc2md'
+        ]
       }
     },
     uglify: {
@@ -106,8 +111,29 @@ module.exports = function(grunt) {
           '<%= yeoman.src %>/*.js'
         ]
       }
+    },
+    jsdoc2md: {
+      oneOutputFile: {
+        src: 'src/*.js',
+        dest: 'api/documentation.md'
+      },
+      /*separateOutputFilePerInput: {
+        files: [
+          { src: 'src/jacket.js', dest: 'api/jacket.md' },
+          { src: 'src/shirt.js', dest: 'api/shirt.md' }
+        ]
+      },*/
+      withOptions: {
+        options: {
+          'no-gfm': true
+        },
+        src: 'src/*.js',
+        dest: 'api/with-index.md'
+      }
     }
   });
+
+  grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
 
   grunt.registerTask('test', ['mocha']);
   grunt.registerTask('qa', ['concurrent:qa']);
@@ -121,4 +147,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
 
   grunt.registerTask('travis', ['concurrent:qa']);
+
+  grunt.registerTask('docs', ['concurrent:docs']);
 };
