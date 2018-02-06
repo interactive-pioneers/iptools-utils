@@ -50,7 +50,7 @@ var iptUtils = function() {
   toggleHoverAbility(!isTouchDevice());
 
   // public API
-  var publicAPI = {
+  return {
 
     // public property
     //myPublicProperty: 'foo',
@@ -163,9 +163,5 @@ var iptUtils = function() {
       }
     }
   };
-
-  publicAPI.deviceDetection.isBreakpoint = publicAPI.deviceDetection.isMediaQuery;
-
-  return publicAPI;
 
 }();

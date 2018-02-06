@@ -42,16 +42,18 @@ $media-queries-power: 1;
   $media-queries-count: $media-queries-count + 1;
 }
 /* HOW THIS WORKS:
- * For each media query, a specific detector div is given the height (2^n-1)px if the media query applies.
+ *
+ * For each media query, a specific detector div is given the height (2^n-1)px if that media query applies.
  * So, first container is given 1px, second 2px, third 4px, fourth 8px, and so forth.
  * In binary, this is 1, 10, 100, 1000, and so forth, respectively.
+ * So each media query has a specific binary digit that is 1 if it applies.
  * This way, the sum of all heights (or easier, the height of the container div) is a digit-by-digit representation
  * of all media queries, with 1 being active and 0 being inactive.
  *
  * Example: A list of 5 media queries of which #1, #4, and #5 are active.
- * Media query #1 is active, so its corresponding detector div is 1px high.
- * Media query #4 is active, so its corresponding detector div is 8px high.
- * Media query #5 is active, so its corresponding detector div is 16px high.
+ * Media query #1 is active, so its corresponding detector div is 1px (2^0) high.
+ * Media query #4 is active, so its corresponding detector div is 8px (2^3) high.
+ * Media query #5 is active, so its corresponding detector div is 16px (2^4) high.
  * The detector divs for media query #2 and #3 remain at 0px height.
  * The height of the container div is 1 + 8 + 16 = 25.
  * In binary: 1 + 1000 + 10000 = 11001
