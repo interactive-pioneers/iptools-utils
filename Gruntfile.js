@@ -69,8 +69,19 @@ module.exports = function(grunt) {
       },
       build: {
         tasks: [
-          'uglify'
+          'uglify',
+          'sass'
         ]
+      }
+    },
+    sass: {
+      dist: {
+        options: {
+          outputStyle: 'expanded'
+        },
+        files: {
+          '<%= yeoman.dist %>/iptools-utils.min.css': '<%= yeoman.src %>/iptools-utils.scss'
+        }
       }
     },
     uglify: {
