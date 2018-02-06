@@ -23,21 +23,9 @@
   }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 1025px) {
   .media-queries-detectors__detector--3 {
     height: 4px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .media-queries-detectors__detector--4 {
-    height: 8px;
-  }
-}
-
-@media (min-width: 1025px) {
-  .media-queries-detectors__detector--5 {
-    height: 16px;
   }
 }
 
@@ -67,5 +55,5 @@
  */
 body::after {
   display: none;
-  content: "phone|tablet|tablet-up|portable|desktop-up";
+  content: "phone|tablet|desktop-up";
 }

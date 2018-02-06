@@ -1,8 +1,6 @@
 $media-queries: (
     'phone': '(max-width: 640px)',
     'tablet': '(min-width: 641px) and (max-width: 1024px)',
-    'tablet-up': '(min-width: 641px)',
-    'portable': '(max-width: 1024px)',
     'desktop-up': '(min-width: 1025px)'
 ) !default;
 
