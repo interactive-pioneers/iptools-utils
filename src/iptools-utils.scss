@@ -1,0 +1,70 @@
+$media-queries: (
+    'phone': '(max-width: 640px)',
+    'tablet': '(min-width: 641px) and (max-width: 1024px)',
+    'tablet-up': '(min-width: 641px)',
+    'portable': '(max-width: 1024px)',
+    'desktop-up': '(min-width: 1025px)'
+) !default;
+
+$media-queries-string: '';
+$media-queries-count: 1;
+$media-queries-height: 1;
+$media-queries-power: 1;
+
+.media-queries-detectors {
+  position: fixed;
+  top: 0;
+  left: -100px;
+
+  width: 0;
+  height: auto;
+
+  &__detector {
+    width: 0;
+    height: 0;
+  }
+}
+
+@each $key, $value in $media-queries {
+  @if $media-queries-count == 1 {
+    $media-queries-string: $key;
+  } @else {
+    $media-queries-string: '#{$media-queries-string}|#{$key}';
+  }
+
+  @media #{map-get($media-queries, $key)} {
+    .media-queries-detectors__detector--#{$media-queries-count} {
+      height: #{$media-queries-power}px;
+      $media-queries-power: $media-queries-power * 2;
+    }
+  }
+
+  $media-queries-count: $media-queries-count + 1;
+}
+/* HOW THIS WORKS:
+ * For each media query, a specific detector div is given the height (2^n-1)px if the media query applies.
+ * So, first container is given 1px, second 2px, third 4px, fourth 8px, and so forth.
+ * In binary, this is 1, 10, 100, 1000, and so forth, respectively.
+ * This way, the sum of all heights (or easier, the height of the container div) is a digit-by-digit representation
+ * of all media queries, with 1 being active and 0 being inactive.
+ *
+ * Example: A list of 5 media queries of which #1, #4, and #5 are active.
+ * Media query #1 is active, so its corresponding detector div is 1px high.
+ * Media query #4 is active, so its corresponding detector div is 8px high.
+ * Media query #5 is active, so its corresponding detector div is 16px high.
+ * The detector divs for media query #2 and #3 remain at 0px height.
+ * The height of the container div is 1 + 8 + 16 = 25.
+ * In binary: 1 + 1000 + 10000 = 11001
+ * 1           1           0           0           1
+ * #5 (true)   #4 (true)   #3 (false)  #2 (false)  #1 (true)
+ *
+ * This way, by reading two values -
+ * the media queries string with all the names and the height of the detector container -
+ * Up to 25 media queries can be determined active or inactive.
+ * Since the media queries string never changes at runtime, reading it can be omitted on subsequent detections.
+ */
+
+body::after {
+  display: none;
+  content: '#{$media-queries-string}';
+}
