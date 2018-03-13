@@ -1,7 +1,21 @@
 $media-queries: (
+    'phone-s': '(max-width: 320px)',
+    'phone-m': '(min-width: 321px) and (max-width: 480px)',
+    'phone-l': '(min-width: 481px) and (max-width: 640px)',
     'phone': '(max-width: 640px)',
-    'tablet': '(min-width: 641px) and (max-width: 1024px)',
-    'desktop-up': '(min-width: 1025px)'
+    'retina': '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx)',
+    'tablet-s': '(min-width: 641px) and (max-width: 780px) and (orientation: portrait)',
+    'tablet-m': '(min-width: 781px) and (max-width: 900px) and (orientation: portrait)',
+    'tablet-l': '(min-width: 901px) and (max-width: 1024px)',
+    'tablet': '(min-width: 641px) and (max-width: 900px) and (orientation: portrait), (min-width: 901px) and (max-width: 1024px)',
+    'tablet-up': '(min-width: 641px) and (orientation: portrait), (min-width: 901px)',
+    'portable': '(max-width: 1024px)',
+    'desktop': '(min-width: 1025px) and (max-width: 1920px)',
+    'desktop-up': '(min-width: 1025px)',
+    'hd-up': '(min-width: 1920px)',
+    'hd-up-retina': '(min-width: 1920px) and (-webkit-min-device-pixel-ratio: 2), (min-width: 1920px) and (min-resolution: 192dpi), (min-width: 1920px) and (min-resolution: 2dppx)',
+    'uhd-up': '(min-width: 3840px)',
+    'uhd-up-retina': '(min-width: 3840px) and (-webkit-min-device-pixel-ratio: 2), (min-width: 3840px) and (min-resolution: 192dpi), (min-width: 3840px) and (min-resolution: 2dppx)'
 ) !default;
 
 $media-queries-string: '';
