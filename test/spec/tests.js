@@ -9,7 +9,7 @@
     describe('init', function() {
 
       it('expected to be an object', function() {
-        return expect(iptUtils).to.be.an.object;
+        return expect(iptUtils).to.be.an('object');
       });
 
     });
@@ -42,7 +42,7 @@
           return expect(iptUtils.getNamespacedEvents(eventNames, namespace)).to.equal(result);
         });
 
-        it('expected to trow an error', function() {
+        it('expected to throw an error', function() {
           eventNames = undefined;
           namespace = 'ip';
           result = function() {
@@ -51,7 +51,7 @@
           return expect(result).to.throw();
         });
 
-        it('expected to trow an error', function() {
+        it('expected to throw an error', function() {
           eventNames = 'click';
           namespace = {};
           result = function() {
@@ -60,7 +60,7 @@
           return expect(result).to.throw();
         });
 
-        it('expected to trow an error', function() {
+        it('expected to throw an error', function() {
           eventNames = 'click';
           namespace = 'im batman';
           result = function() {
@@ -69,7 +69,7 @@
           return expect(result).to.throw();
         });
 
-        it('expected to trow an error', function() {
+        it('expected to throw an error', function() {
           eventNames = 'click';
           namespace = 'im.batman';
           result = function() {
@@ -78,7 +78,7 @@
           return expect(result).to.throw();
         });
 
-        it('expected to trow an error', function() {
+        it('expected to throw an error', function() {
           eventNames = 'cli ck';
           namespace = 'batman';
           result = function() {
@@ -87,7 +87,7 @@
           return expect(result).to.throw();
         });
 
-        it('expected to trow an error', function() {
+        it('expected to throw an error', function() {
           eventNames = 'cli.ck';
           namespace = 'batman';
           result = function() {
@@ -96,7 +96,7 @@
           return expect(result).to.throw();
         });
 
-        it('expected to trow an error', function() {
+        it('expected to throw an error', function() {
           eventNames = ['mouseUp', {}];
           namespace = 'batman';
           result = function() {
@@ -105,7 +105,7 @@
           return expect(result).to.throw();
         });
 
-        it('expected to trow an error', function() {
+        it('expected to throw an error', function() {
           eventNames = ['mouseUp', 'cli ck'];
           namespace = 'batman';
           result = function() {
@@ -114,11 +114,43 @@
           return expect(result).to.throw();
         });
 
-        it('expected to trow an error', function() {
+        it('expected to throw an error', function() {
           eventNames = ['mouseUp', 'cli.ck'];
           namespace = 'batman';
           result = function() {
             iptUtils.getNamespacedEvents(eventNames, namespace);
+          };
+          return expect(result).to.throw();
+        });
+
+      });
+
+      describe('deviceDetection', function() {
+        var result;
+
+        it('expected getMediaQueries to return an object', function() {
+          result = iptUtils.deviceDetection.getMediaQueries();
+          return expect(result).to.be.an('object');
+        });
+
+        it('expected getMediaQueries to return an object that has a property "phone"', function() {
+          result = iptUtils.deviceDetection.getMediaQueries();
+          return (expect(result).to.be.an('object') && expect(result).to.have.property('phone'));
+        });
+
+        it('expected getMediaQueries to return an object that has a property "phone" which is a boolean', function() {
+          result = iptUtils.deviceDetection.getMediaQueries();
+          return (expect(result).to.be.an('object') && expect(result).to.have.property('phone') && expect(result.phone).to.be.a('boolean'));
+        });
+
+        it('expected isMediaQuery to return a boolean value on parameter "phone"', function() {
+          result = iptUtils.deviceDetection.isMediaQuery('phone');
+          return expect(result).to.be.a('boolean');
+        });
+
+        it('expected isMediaQuery to throw an error on parameter "batman"', function() {
+          result = function() {
+            iptUtils.deviceDetection.isMediaQuery('batman');
           };
           return expect(result).to.throw();
         });

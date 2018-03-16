@@ -4,11 +4,50 @@
 
 var iptUtils = function() {
 
-  // private property
-  //var myPrivateProperty = 'foo';
+  // private properties
+  var htmlNode = document.querySelector('html');
+  var breakpointsArray = [];
+  var cachedBreakpointsHeight = -1;
+  var cachedBreakpointsObject = {};
 
-  // private method
-  /*var myPrivateMethod = function() {};*/
+  var classes = {
+    isTouch: 'is-touch',
+    enableHover: 'hover',
+    isIPhone: 'is-iphone',
+    mediaQueriesDetectors: 'media-queries-detectors',
+    mediaQueriesDetector: 'media-queries-detectors__detector'
+  };
+
+  var selectors = {
+    mediaQueriesDetectors: '.media-queries-detectors'
+  };
+
+  // private methods
+
+  var isTouchDevice = function() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints;
+  };
+
+  // @TODO evaluate http://detectmobilebrowsers.com/
+  var isMobile = function() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  };
+
+  var isIPhone = function() {
+    return navigator.platform === 'iPhone';
+  };
+
+  var toggleHoverAbility = function(force) {
+    var toggle = typeof force !== 'undefined' ?
+      !!force :
+      htmlNode.classList.contains(classes.enableHover) ? false : true;
+
+    htmlNode.classList.toggle(classes.enableHover, toggle);
+  };
+
+  htmlNode.classList.toggle(classes.isTouch, !!isTouchDevice());
+  htmlNode.classList.toggle(classes.isIPhone, !!isIPhone());
+  toggleHoverAbility(!isTouchDevice());
 
   // public API
   return {
@@ -44,10 +83,85 @@ var iptUtils = function() {
       }
 
       return events instanceof Array ?
-        events.join('.' + namespace + ' ') + '.' + namespace
-        : events + '.' + namespace;
-    }
+        events.join('.' + namespace + ' ') + '.' + namespace :
+        events + '.' + namespace;
+    },
 
+    deviceDetection: {
+
+      isTouchDevice: !!isTouchDevice(),
+
+      isIPhone: !!isIPhone(),
+
+      isMobile: !!isMobile(),
+
+      toggleHoverAbility: function(force) {
+        toggleHoverAbility(force);
+      },
+
+      isMediaQuery: function(mediaQuery) {
+        var currentMediaQueries = this.getMediaQueries();
+        var isActive = false;
+
+        if (currentMediaQueries.hasOwnProperty(mediaQuery)) {
+          isActive = currentMediaQueries[mediaQuery];
+        } else {
+          throw new Error('Media query ' + mediaQuery + ' does not exist.')
+        }
+        return isActive;
+      },
+
+      /**
+       * Returns a list of existing and active media queries
+       * @returns {Object} list of existing media queries with boolean value denoting their active status
+       */
+      getMediaQueries: function() {
+        if (breakpointsArray.length === 0) {
+          breakpointsArray = window.getComputedStyle(document.querySelector('body'), '::after')
+            .getPropertyValue('content')
+            .replace(/'*"*/g, '')
+            .split('|');
+        }
+
+        var mediaQueriesDetectors = document.querySelectorAll(selectors.mediaQueriesDetectors);
+
+        if (mediaQueriesDetectors.length === 0) {
+          var container = document.createElement('div');
+          container.classList.add(classes.mediaQueriesDetectors);
+
+          for (var i = 1; i <= breakpointsArray.length; i++) {
+            var detector = document.createElement('div');
+            detector.classList
+              .add(classes.mediaQueriesDetector, classes.mediaQueriesDetector + '--' + i);
+            container
+              .appendChild(detector);
+          }
+
+          document.querySelector('body').appendChild(container);
+          mediaQueriesDetectors = container;
+        } else {
+          mediaQueriesDetectors = mediaQueriesDetectors[0];
+        }
+
+        var detectedHeight = mediaQueriesDetectors.offsetHeight;
+
+        if (detectedHeight === cachedBreakpointsHeight) {
+          return cachedBreakpointsObject;
+        } else {
+          cachedBreakpointsHeight = detectedHeight;
+          // consult the SCSS file for an explanation why/how the following code works
+          var detectedHeightBinaryArray = detectedHeight.toString(2).split('').reverse();
+          var resultObject = {};
+
+          for (var j = 0; j < breakpointsArray.length; j++) {
+            resultObject[breakpointsArray[j]] = detectedHeightBinaryArray[j] === '1';
+          }
+
+          cachedBreakpointsObject = resultObject;
+          return resultObject;
+        }
+      }
+    }
   };
 
 }();
