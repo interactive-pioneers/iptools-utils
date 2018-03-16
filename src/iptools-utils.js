@@ -39,8 +39,8 @@ var iptUtils = function() {
 
   var toggleHoverAbility = function(force) {
     var toggle = typeof force !== 'undefined' ?
-      !!force
-      : htmlNode.classList.contains(classes.enableHover) ? false : true;
+      !!force :
+      htmlNode.classList.contains(classes.enableHover) ? false : true;
 
     htmlNode.classList.toggle(classes.enableHover, toggle);
   };
@@ -83,8 +83,8 @@ var iptUtils = function() {
       }
 
       return events instanceof Array ?
-        events.join('.' + namespace + ' ') + '.' + namespace
-        : events + '.' + namespace;
+        events.join('.' + namespace + ' ') + '.' + namespace :
+        events + '.' + namespace;
     },
 
     deviceDetection: {
