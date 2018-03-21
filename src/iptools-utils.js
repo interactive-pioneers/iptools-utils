@@ -119,6 +119,13 @@ var iptUtils = function() {
       },
 
       getMediaQueriesArray: function() {
+
+        var mediaQueriesDetectors = document.querySelectorAll(selectors.mediaQueriesDetectors);
+
+        if (mediaQueriesDetectors.length === 0) {
+          createMediaQueriesDetectors();
+        }
+
         if (breakpointsArray.length === 0) {
           breakpointsArray = window.getComputedStyle(document.querySelectorAll(selectors.mediaQueriesDetectors)[0], '::before')
             .getPropertyValue('content')
