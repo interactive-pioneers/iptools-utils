@@ -7,6 +7,7 @@ var iptUtils = function() {
   // private properties
   var htmlNode = document.querySelector('html');
   var breakpointsArray = [];
+  var breakpointsValuesArray = [];
   var cachedBreakpointsHeight = -1;
   var cachedBreakpointsObject = {};
 
@@ -48,6 +49,12 @@ var iptUtils = function() {
   htmlNode.classList.toggle(classes.isTouch, !!isTouchDevice());
   htmlNode.classList.toggle(classes.isIPhone, !!isIPhone());
   toggleHoverAbility(!isTouchDevice());
+
+  var createMediaQueriesDetectors = function() {
+    var container = document.createElement('div');
+    container.classList.add(classes.mediaQueriesDetectors);
+    document.querySelector('body').appendChild(container);
+  };
 
   // public API
   return {
@@ -111,36 +118,63 @@ var iptUtils = function() {
         return isActive;
       },
 
-      /**
-       * Returns a list of existing and active media queries
-       * @returns {Object} list of existing media queries with boolean value denoting their active status
-       */
-      getMediaQueries: function() {
+      getMediaQueriesArray: function() {
         if (breakpointsArray.length === 0) {
-          breakpointsArray = window.getComputedStyle(document.querySelector('body'), '::after')
+          breakpointsArray = window.getComputedStyle(document.querySelectorAll(selectors.mediaQueriesDetectors)[0], '::before')
             .getPropertyValue('content')
             .replace(/'*"*/g, '')
             .split('|');
         }
 
+        if (breakpointsValuesArray.length === 0) {
+          breakpointsValuesArray = window.getComputedStyle(document.querySelectorAll(selectors.mediaQueriesDetectors)[0], '::after')
+            .getPropertyValue('content')
+            .replace(/'*"*/g, '')
+            .split('|');
+        }
+
+        var breakpointsList = {};
+
+        for (var i = 0; i < breakpointsArray.length; i++) {
+          breakpointsList[breakpointsArray[i]] = breakpointsValuesArray[i];
+        }
+
+        return breakpointsList;
+      },
+
+      /**
+       * Returns a list of existing and active media queries
+       * @returns {Object} list of existing media queries with boolean value denoting their active status
+       */
+      getMediaQueries: function() {
+        var mediaQueriesDetectorsExists = true;
         var mediaQueriesDetectors = document.querySelectorAll(selectors.mediaQueriesDetectors);
 
         if (mediaQueriesDetectors.length === 0) {
-          var container = document.createElement('div');
-          container.classList.add(classes.mediaQueriesDetectors);
+          mediaQueriesDetectorsExists = false;
 
+          createMediaQueriesDetectors();
+        }
+
+        mediaQueriesDetectors = document.querySelectorAll(selectors.mediaQueriesDetectors)[0];
+
+        if (breakpointsArray.length === 0) {
+          breakpointsArray = window.getComputedStyle(document.querySelectorAll(selectors.mediaQueriesDetectors)[0], '::before')
+            .getPropertyValue('content')
+            .replace(/'*"*/g, '')
+            .split('|');
+        }
+
+        console.log(breakpointsArray);
+
+        if (!mediaQueriesDetectorsExists) {
           for (var i = 1; i <= breakpointsArray.length; i++) {
             var detector = document.createElement('div');
             detector.classList
               .add(classes.mediaQueriesDetector, classes.mediaQueriesDetector + '--' + i);
-            container
+            mediaQueriesDetectors
               .appendChild(detector);
           }
-
-          document.querySelector('body').appendChild(container);
-          mediaQueriesDetectors = container;
-        } else {
-          mediaQueriesDetectors = mediaQueriesDetectors[0];
         }
 
         var detectedHeight = mediaQueriesDetectors.offsetHeight;
