@@ -21,7 +21,7 @@ module.exports = function(grunt) {
           '* <%= yeoman.pkg.homepage %>\n' +
           '* Copyright © <%= grunt.template.today("yyyy") %> ' +
           '<%= yeoman.pkg.author.name %>; Licensed <%= yeoman.pkg.license %> */\n'
-      },
+      }
     },
     watch: {
       qa: {
@@ -125,6 +125,11 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'concurrent:qa',
+    'clean:dist',
+    'concurrent:build'
+  ]);
+
+  grunt.registerTask('force build', [
     'clean:dist',
     'concurrent:build'
   ]);

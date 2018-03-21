@@ -1,6 +1,6 @@
 {
   "name": "iptools-utils",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Common utility bundle",
   "homepage": "https://github.com/interactive-pioneers/iptools-utils",
   "author": {
@@ -11,6 +11,10 @@
     {
       "name": "Georg Meyer",
       "email": "gm@interactive-pioneers.de"
+    },
+    {
+      "name": "Thomas Weiler",
+      "email": "tw@interactive-pioneers.de"
     }
   ],
   "license": "GPL-3.0",

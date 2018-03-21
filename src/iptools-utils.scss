@@ -18,30 +18,24 @@ $media-queries: (
     'uhd-up-retina': '(min-width: 3840px) and (-webkit-min-device-pixel-ratio: 2), (min-width: 3840px) and (min-resolution: 192dpi), (min-width: 3840px) and (min-resolution: 2dppx)'
 ) !default;
 
-$media-queries-string: '';
+$media-queries-keys-string: '';
+$media-queries-values-string: '';
 $media-queries-count: 1;
 $media-queries-height: 1;
 $media-queries-power: 1;
 
-.media-queries-detectors {
-  position: fixed;
-  top: 0;
-  left: -100px;
-
+.media-queries-detectors__detector {
   width: 0;
-  height: auto;
-
-  &__detector {
-    width: 0;
-    height: 0;
-  }
+  height: 0;
 }
 
 @each $key, $value in $media-queries {
   @if $media-queries-count == 1 {
-    $media-queries-string: $key;
+    $media-queries-keys-string: '#{$key}';
+    $media-queries-values-string: '#{$value}';
   } @else {
-    $media-queries-string: '#{$media-queries-string}|#{$key}';
+    $media-queries-keys-string: '#{$media-queries-keys-string}|#{$key}';
+    $media-queries-values-string: '#{$media-queries-values-string}|#{$value}';
   }
 
   @media #{map-get($media-queries, $key)} {
@@ -78,7 +72,23 @@ $media-queries-power: 1;
  * Since the media queries string never changes at runtime, reading it can be omitted on subsequent detections.
  */
 
-body::after {
-  display: none;
-  content: '#{$media-queries-string}';
+.media-queries-detectors {
+  position: fixed;
+  top: 0;
+  left: -100px;
+
+  width: 0;
+  height: auto;
+
+  &::before {
+    display: none;
+    content: '#{$media-queries-keys-string}';
+  }
+  
+  &::after {
+    display: none;
+    content: '#{$media-queries-values-string}';
+  }
 }
+
+
