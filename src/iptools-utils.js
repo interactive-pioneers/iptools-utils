@@ -172,7 +172,7 @@ var iptUtils = function() {
             .split('|');
         }
 
-        if (!mediaQueriesDetectorsExists) {
+        if (document.querySelectorAll(selectors.mediaQueriesDetector).length === 0) {
           for (var i = 1; i <= breakpointsArray.length; i++) {
             var detector = document.createElement('div');
             detector.classList
