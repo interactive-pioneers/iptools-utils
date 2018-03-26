@@ -172,8 +172,6 @@ var iptUtils = function() {
             .split('|');
         }
 
-        console.log(breakpointsArray);
-
         if (!mediaQueriesDetectorsExists) {
           for (var i = 1; i <= breakpointsArray.length; i++) {
             var detector = document.createElement('div');
