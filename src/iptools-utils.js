@@ -20,7 +20,8 @@ var iptUtils = function() {
   };
 
   var selectors = {
-    mediaQueriesDetectors: '.media-queries-detectors'
+    mediaQueriesDetectors: '.media-queries-detectors',
+    mediaQueriesDetector: '.media-queries-detectors__detector'
   };
 
   // private methods
