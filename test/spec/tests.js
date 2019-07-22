@@ -140,7 +140,11 @@
 
         it('expected getMediaQueries to return an object that has a property "phone" which is a boolean', function() {
           result = iptUtils.deviceDetection.getMediaQueries();
-          return (expect(result).to.be.an('object') && expect(result).to.have.property('phone') && expect(result.phone).to.be.a('boolean'));
+          return (
+            expect(result).to.be.an('object') &&
+            expect(result).to.have.property('phone') &&
+            expect(result.phone).to.be.a('boolean')
+          );
         });
 
         it('expected isMediaQuery to return a boolean value on parameter "phone"', function() {
