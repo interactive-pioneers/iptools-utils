@@ -18,6 +18,8 @@ $media-queries: (
     'uhd-up-retina': '(min-width: 3840px) and (-webkit-min-device-pixel-ratio: 2), (min-width: 3840px) and (min-resolution: 192dpi), (min-width: 3840px) and (min-resolution: 2dppx)'
 ) !default;
 
+$breakpoints: $media-queries !default;
+
 $media-queries-keys-string: '';
 $media-queries-values-string: '';
 $media-queries-count: 1;
@@ -29,7 +31,7 @@ $media-queries-power: 1;
   height: 0;
 }
 
-@each $key, $value in $media-queries {
+@each $key, $value in $breakpoints {
   @if $media-queries-count == 1 {
     $media-queries-keys-string: '#{$key}';
     $media-queries-values-string: '#{$value}';
@@ -38,7 +40,7 @@ $media-queries-power: 1;
     $media-queries-values-string: '#{$media-queries-values-string}|#{$value}';
   }
 
-  @media #{map-get($media-queries, $key)} {
+  @media #{map-get($breakpoints, $key)} {
     .media-queries-detectors__detector--#{$media-queries-count} {
       height: #{$media-queries-power}px;
       $media-queries-power: $media-queries-power * 2;
@@ -73,18 +75,23 @@ $media-queries-power: 1;
  */
 
 .media-queries-detectors {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: -100px;
 
+  display: block;
   width: 0;
   height: auto;
+
+  opacity: 0;
+
+  pointer-events: none;
 
   &::before {
     display: none;
     content: '#{$media-queries-keys-string}';
   }
-  
+
   &::after {
     display: none;
     content: '#{$media-queries-values-string}';

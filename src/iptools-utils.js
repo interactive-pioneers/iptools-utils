@@ -185,8 +185,8 @@
           if (document.querySelectorAll(selectors.mediaQueriesDetector).length === 0) {
             for (var i = 1; i <= breakpointsArray.length; i++) {
               var detector = document.createElement('div');
-              detector.classList
-                .add(classes.mediaQueriesDetector, classes.mediaQueriesDetector + '--' + i);
+              detector.classList.add(classes.mediaQueriesDetector);
+              detector.classList.add(classes.mediaQueriesDetector + '--' + i);
               mediaQueriesDetectors
                 .appendChild(detector);
             }

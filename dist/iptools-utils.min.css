@@ -130,11 +130,14 @@
  * Since the media queries string never changes at runtime, reading it can be omitted on subsequent detections.
  */
 .media-queries-detectors {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: -100px;
+  display: block;
   width: 0;
   height: auto;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .media-queries-detectors::before {
