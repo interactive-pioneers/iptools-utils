@@ -1,13 +1,65 @@
-/*jshint -W117 */
-
 'use strict';
+/*jshint -W117 */
+if (typeof require === 'function') {
+  //var {JSDOM} = require('jsdom');
+  const chai = require('chai');
+  const fs = require('fs');
+  var content = fs.readFileSync('test/jsdom.html', 'utf8');
+  require('jsdom-global')(content, {
+    url: 'file://' + __dirname,
+    pretendToBeVisual: true,
+    resources: 'usable',
+    runScripts: 'dangerously'
+  });
+  // var iptUtils = window.iptUtils;
+  //var iptUtils = require('../../src/iptools-utils');
+  var expect = chai.expect;
+}
 
 (function() {
 
   describe('iptUtils', function() {
 
-    describe('init', function() {
+    /*before(function() {
+      // const fs = require('fs');
+      // var content = fs.readFileSync('test/index.html', 'utf8');
+      // //console.log(content);
+      //
+      // this.jsdom = require('jsdom-global')(content);
+      // console.log('blerk', iptUtils);
 
+      // const handleWebPage = (dom) => {
+      //   console.log('really');
+      //   const waitForScripts = () => {
+      //     global.window = dom.defaultView;
+      //     global.document = window.document;
+      //     global.navigator = window.navigator === {} ? {userAgent: 'JSDOM'} : window.navigator;
+      //     console.log('ahem....');
+      //     done();
+      //   };
+      //   dom.window.onload = waitForScripts;
+      // };
+      //
+      // if (typeof window !== 'object') {
+      //   console.log('nope');
+      //   const result = JSDOM.fromFile('test/index.html', {pretendToBeVisual: true, resources: 'usable', runScripts: 'dangerously'}).then(handleWebPage);
+      //   console.log('we are: ', result);
+      //   return result;
+      // } else {
+      //   console.log('what?');
+      //   return null;
+      // }
+    });
+
+    after(function() {
+      //this.jsdom();
+    });*/
+
+    beforeEach(function(){
+      global.iptUtils = window.iptUtils;
+    });
+
+    describe('init', function() {
       it('expected to be an object', function() {
         return expect(iptUtils).to.be.an('object');
       });
@@ -32,6 +84,8 @@
           eventNames = ['mouseUp'];
           namespace = 'ip';
           result = 'mouseUp.ip';
+          console.log('what?', typeof eventNames);
+          console.log('wtf', iptUtils.getNamespacedEvents(eventNames, namespace));
           return expect(iptUtils.getNamespacedEvents(eventNames, namespace)).to.equal(result);
         });
 

@@ -1,9 +1,9 @@
 /*jshint -W098 */
 (function() {
+
   'use strict';
 
   var iptUtils = function() {
-
     // private properties
     var htmlNode = document.querySelector('html');
     var breakpointsArray = [];
@@ -71,24 +71,32 @@
        */
       getNamespacedEvents: function(events, namespace) {
         if (!(events instanceof Array) && typeof events !== 'string') {
+          console.log(typeof events);
           throw new Error('parameter events is not of type Array or String');
         }
         if (typeof events === 'string' && (events.indexOf(' ') !== -1 || events.indexOf('.') !== -1)) {
+          console.log(2);
           throw new Error('parameter events is invalid, contains " " or "."');
         }
         if (events instanceof Array) {
+          console.log(3);
           events.map(function(event) {
             if (typeof event !== 'string' || (event.indexOf(' ') !== -1 || event.indexOf('.') !== -1)) {
+              console.log(4);
               throw new Error('parameter events is invalid, contains " " or "."');
             }
           });
         }
         if (typeof namespace !== 'string') {
+          console.log(5);
           throw new Error('parameter namespace is not of String');
         }
         if (namespace.indexOf(' ') !== -1 || namespace.indexOf('.') !== -1) {
+          console.log(6);
           throw new Error('parameter namespace is invalid, contains " " or "."');
         }
+
+        console.log(7);
 
         return events instanceof Array ?
           events.join('.' + namespace + ' ') + '.' + namespace :
@@ -213,7 +221,6 @@
       }
     };
   };
-
   window.iptUtils = iptUtils();
 
 })();
