@@ -43,10 +43,10 @@ $media-queries-power: 1;
   @media #{map-get($breakpoints, $key)} {
     .media-queries-detectors__detector--#{$media-queries-count} {
       height: #{$media-queries-power}px;
-      $media-queries-power: $media-queries-power * 2;
     }
   }
 
+  $media-queries-power: $media-queries-power * 2;
   $media-queries-count: $media-queries-count + 1;
 }
 /* HOW THIS WORKS:
