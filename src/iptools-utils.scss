@@ -88,12 +88,10 @@ $media-queries-power: 1;
   pointer-events: none;
 
   &::before {
-    display: none;
     content: '#{$media-queries-keys-string}';
   }
 
   &::after {
-    display: none;
     content: '#{$media-queries-values-string}';
   }
 }
