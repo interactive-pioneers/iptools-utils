@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $media-queries: (
     'phone-s': '(max-width: 320px)',
     'phone-m': '(min-width: 321px) and (max-width: 480px)',
@@ -40,7 +42,7 @@ $media-queries-power: 1;
     $media-queries-values-string: '#{$media-queries-values-string}|#{$value}';
   }
 
-  @media #{map-get($breakpoints, $key)} {
+  @media #{map.get($breakpoints, $key)} {
     .media-queries-detectors__detector--#{$media-queries-count} {
       height: #{$media-queries-power}px;
     }
@@ -95,5 +97,3 @@ $media-queries-power: 1;
     content: '#{$media-queries-values-string}';
   }
 }
-
-

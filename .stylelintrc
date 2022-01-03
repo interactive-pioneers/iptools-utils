@@ -1,7 +1,9 @@
 {
   "plugins": [
-    "stylelint-order"
+    "stylelint-order",
+    "stylelint-scss"
   ],
+  "ignoreFiles": ["**/*.css", "**/*.js", "node_modules/**/*"],
   "rules": {
     "block-no-empty": true,
     "block-opening-brace-newline-after": "always",
@@ -20,11 +22,11 @@
     "declaration-colon-space-after": "always-single-line",
     "declaration-colon-space-before": "never",
     "font-family-no-missing-generic-family-keyword": true,
-    "function-calc-no-invalid": true,
     "function-calc-no-unspaced-operator": true,
     "function-comma-space-before": "never",
     "function-url-no-scheme-relative": true,
     "function-url-quotes": "always",
+    "length-zero-no-unit": true,
     "max-empty-lines": 1,
     "selector-type-no-unknown": true,
     "shorthand-property-no-redundant-values": true,
@@ -32,6 +34,23 @@
     "unit-case": "lower",
     "unit-no-unknown": true,
     "value-no-vendor-prefix": true,
+    "scss/partial-no-import": true,
+    "scss/function-color-relative": true,
+    "scss/no-duplicate-mixins": true,
+    "scss/dollar-variable-colon-space-after": "always",
+    "scss/dollar-variable-colon-space-before": "never",
+    "order/order": [
+      {
+        "type": "at-rule",
+        "name": "include"
+      },
+      "declarations",
+      {
+        "type": "at-rule",
+        "name": "include",
+        "hasBlock": true
+      }
+    ],
     "order/properties-order": [
       {
         "groupName": "Positioning",

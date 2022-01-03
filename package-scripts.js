@@ -19,13 +19,15 @@ module.exports = {
     },
     lint: {
       default: {
-        script: 'nps banner lint.jscs lint.jshint lint.stylelint',
+        script: 'nps banner lint.eslint lint.jshint lint.stylelint',
         description: 'Exec all linter'
       },
-      jscs: './node_modules/.bin/jscs --config=.jscsrc',
       jshint: './node_modules/.bin/jshint --config ',
-      stylelint: `stylelint ${src}/iptools-utils.scss --config .stylelintrc`,
-      mocha: `./node_modules/mocha/bin/mocha "./${tests}/spec/*.js"`
+      stylelint: `stylelint ${src}/iptools-utils.scss --custom-syntax postcss-scss`,
+      mocha: `./node_modules/mocha/bin/mocha "./${tests}/spec/*.js"`,
+      eslint: './node_modules/.bin/eslint --config=.eslintrc.json ' +
+        `'${src}/**/*.js' ` +
+        '--no-error-on-unmatched-pattern',
     },
     build: {
       script: 'nps banner helper.cleandist helper.terser helper.sass helper.postcss',
@@ -45,7 +47,7 @@ module.exports = {
         hiddenFromHelp: true
       },
       sass: {
-        script: `node-sass ${src}/iptools-utils.scss ${dist}/iptools-utils.min.css --output-style compressed`,
+        script: `sass ${src}/iptools-utils.scss ${dist}/iptools-utils.min.css --style expanded --no-source-map`,
         hiddenFormHelp: true
       },
       postcss: {
