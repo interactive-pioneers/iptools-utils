@@ -1,7 +1,6 @@
 'use strict';
 /*jshint -W117 */
 if (typeof require === 'function') {
-  //var {JSDOM} = require('jsdom');
   const chai = require('chai');
   const fs = require('fs');
   var content = fs.readFileSync('test/jsdom.html', 'utf8');
@@ -19,41 +18,6 @@ if (typeof require === 'function') {
 (function() {
 
   describe('iptUtils', function() {
-
-    /*before(function() {
-      // const fs = require('fs');
-      // var content = fs.readFileSync('test/index.html', 'utf8');
-      // //console.log(content);
-      //
-      // this.jsdom = require('jsdom-global')(content);
-      // console.log('blerk', iptUtils);
-
-      // const handleWebPage = (dom) => {
-      //   console.log('really');
-      //   const waitForScripts = () => {
-      //     global.window = dom.defaultView;
-      //     global.document = window.document;
-      //     global.navigator = window.navigator === {} ? {userAgent: 'JSDOM'} : window.navigator;
-      //     console.log('ahem....');
-      //     done();
-      //   };
-      //   dom.window.onload = waitForScripts;
-      // };
-      //
-      // if (typeof window !== 'object') {
-      //   console.log('nope');
-      //   const result = JSDOM.fromFile('test/index.html', {pretendToBeVisual: true, resources: 'usable', runScripts: 'dangerously'}).then(handleWebPage);
-      //   console.log('we are: ', result);
-      //   return result;
-      // } else {
-      //   console.log('what?');
-      //   return null;
-      // }
-    });
-
-    after(function() {
-      //this.jsdom();
-    });*/
 
     beforeEach(function(){
       global.iptUtils = window.iptUtils;
