@@ -43,7 +43,7 @@
     "postcss-cli": "^10.0.0",
     "postcss-scss": "^4.0.2",
     "sass": "^1.45.2",
-    "stylelint": "^14.2.0",
+    "stylelint": "^15.10.1",
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.1.0",
     "terser": "^5.10.0",
