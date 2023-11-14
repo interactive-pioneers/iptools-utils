@@ -2,6 +2,7 @@
   "name": "iptools-utils",
   "version": "1.0.0",
   "description": "Utility library for media query detection",
+  "type": "module",
   "homepage": "https://github.com/interactive-pioneers/iptools-utils",
   "author": {
     "name": "Interactive Pioneers GmbH",
