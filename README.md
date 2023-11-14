@@ -6,9 +6,9 @@ IPTools Utilities bundle for media query detection and event namespacing
 
 ### 1. `@use` SCSS package with your project-specific media queries
 ```scss
-@use 'iptools-utils' with ($breakpoints: $my-media-queries);
+@use 'iptools-utils' with ($media-queries: $my-media-queries);
 ```
-***Note:*** `$my-breakpoints` MUST be an SCSS map with key-value pairs, where the key is the name of the breakpoint and the value is the actual media query, i.e. what you would write after `@media` in CSS.
+***Note:*** `$my-media-queries` MUST be an SCSS map with key-value pairs, where the key is the name of the media query and the value is the actual media query, i.e. what you would write after `@media` in CSS.
 
 Alternatively, you can use the default media queries like this:
 ```scss
@@ -16,7 +16,7 @@ Alternatively, you can use the default media queries like this:
 ```
 or by using the supplied `iptools-utils.default.css`.
 
-### 2. import media detection
+### 2. import media query detection
 ```javascript
 import { media } from 'iptools-utils';
 ```
@@ -42,5 +42,5 @@ import { getNamespacedEvents } from 'iptools-utils';
 ### 2. Use namespacing function
 ```javascript
 getNamespacedEvents('eventName', 'myNamespace');
-getNamespacedEvents(['eventName1, eventName2', 'eventName3'], 'myNamespace');
+getNamespacedEvents(['eventName1', 'eventName2', 'eventName3'], 'myNamespace');
 ```
