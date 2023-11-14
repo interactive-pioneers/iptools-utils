@@ -1,0 +1,17 @@
+@mixin configure($mqs) {
+  $media-queries-string: '';
+  $media-queries-count: 1;
+
+  @each $key, $value in $mqs {
+    @if $media-queries-count == 1 {
+      $media-queries-string: '#{$key}|#{$value}';
+    } @else {
+      $media-queries-string: '#{$media-queries-string}__#{$key}|#{$value}';
+    }
+    $media-queries-count: $media-queries-count + 1;
+  }
+
+  :root {
+    --iptUtilsMediaQueries: "#{$media-queries-string}";
+  }
+}

@@ -1,4 +1,4 @@
-@use 'sass:map';
+@use 'scss/setup';
 
 $media-queries: (
   'phone-s': '(max-width: 320px)',
@@ -22,39 +22,4 @@ $media-queries: (
 
 $breakpoints: $media-queries !default;
 
-$media-queries-keys-string: '';
-$media-queries-values-string: '';
-$media-queries-count: 1;
-
-@each $key, $value in $breakpoints {
-  @if $media-queries-count == 1 {
-    $media-queries-keys-string: '#{$key}';
-    $media-queries-values-string: '#{$value}';
-  } @else {
-    $media-queries-keys-string: '#{$media-queries-keys-string}|#{$key}';
-    $media-queries-values-string: '#{$media-queries-values-string}|#{$value}';
-  }
-  $media-queries-count: $media-queries-count + 1;
-}
-
-.media-queries-detector {
-  position: absolute;
-  top: 0;
-  left: -100px;
-
-  display: block;
-  width: 0;
-  height: auto;
-
-  opacity: 0;
-
-  pointer-events: none;
-
-  &::before {
-    content: '#{$media-queries-keys-string}';
-  }
-
-  &::after {
-    content: '#{$media-queries-values-string}';
-  }
-}
+@include setup.configure($breakpoints);

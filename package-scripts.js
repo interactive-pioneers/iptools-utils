@@ -1,4 +1,5 @@
-const src = 'src';
+const jssrc = './js';
+const scsssrc = './scss';
 const dist = 'dist';
 const tests = 'test';
 const config = require('./package.json');
@@ -19,47 +20,41 @@ module.exports = {
     },
     lint: {
       default: {
-        script: 'nps banner lint.eslint lint.jshint lint.stylelint',
+        script: 'nps banner lint.eslint lint.stylelint',
         description: 'Exec all linter'
       },
-      jshint: './node_modules/.bin/jshint --config ',
-      stylelint: `stylelint ${src}/iptools-utils.scss --custom-syntax postcss-scss`,
-      mocha: `./node_modules/mocha/bin/mocha "./${tests}/spec/*.js"`,
+      stylelint: `stylelint ${jssrc}/iptools-utils.scss ${jssrc}/_setup.scss --custom-syntax postcss-scss`,
       eslint: './node_modules/.bin/eslint --config=.eslintrc.json ' +
-        `'${src}/**/*.js' ` +
+        `'${jssrc}/**/*.js' ` +
         '--no-error-on-unmatched-pattern',
     },
     build: {
-      script: 'nps banner helper.cleandist helper.terser helper.sass helper.postcss',
+      script: 'nps banner helper.cleandist helper.js helper.sass',
       description: 'Build distribution from source'
     },
-    watch: {
+    serve: {
       script: `nps banner & nps helper.watchSass & nps helper.watchJS`,
-      descriptn: 'Watch for changes and then build'
+      description: 'Watch for changes and then build'
     },
     helper: {
       cleandist: {
         script: `rm -rf ./${dist}/*`,
         hiddenFromHelp: true
       },
-      terser: {
-        script: `terser ${src}/iptools-utils.js --compress --mangle --output ${dist}/iptools-utils.min.js`,
+      js: {
+        script: `esbuild ${jssrc}/index.js --outfile=${dist}/index.js --bundle --format=esm --minify --target=es6`,
         hiddenFromHelp: true
       },
       sass: {
-        script: `sass ${src}/iptools-utils.scss ${dist}/iptools-utils.min.css --style expanded --no-source-map`,
+        script: `sass index.scss ${dist}/iptools-utils.default.css --style expanded --no-source-map`,
         hiddenFormHelp: true
       },
-      postcss: {
-        script: `postcss ${dist}/iptools-utils.min.css --use autoprefixer cssnano --replace --no-map`,
-        hiddenFromHelp: true
-      },
       watchSass: {
-        script: `nodemon --exec 'nps helper.sass helper.postcss' --ext scss --watch ${src}`,
+        script: `nodemon --exec 'nps helper.sass' --ext scss --watch ${scsssrc}`,
         hiddenFromHelp: true
       },
       watchJS: {
-        script: `nodemon --exec 'nps helper.terser' --ext js --watch ${src}`,
+        script: `nodemon --exec 'nps helper.js' --ext js --watch ${jssrc}`,
         hiddenFromHelp: true
       }
     }

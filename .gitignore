@@ -8,6 +8,6 @@ coverage
 .grunt
 .lock-wscript
 .idea
-build/Release
+dist
 node_modules
 bower_components

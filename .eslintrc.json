@@ -1,6 +1,18 @@
 {
+  "ignorePatterns": [
+    "package-scripts.js",
+    "scripts.js",
+    "**/scripts/*.*",
+    "**/*.config.js",
+    "**/node_modules/**/*",
+    "**/config/*"
+  ],
+  "env": {
+    "browser": true
+  },
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 13,
+    "sourceType": "module"
   },
   "rules": {
     "curly": [
@@ -75,11 +87,25 @@
       2,
       "never"
     ],
+    "no-const-assign": "error",
+    "prefer-const": "error",
     "no-multiple-empty-lines": 2,
-    "no-alert": 2,
+    "no-bitwise": 2,
+    "no-console": "warn",
+    "no-alert": "error",
     "no-eval": 2,
     "no-unreachable": 2,
+    "no-use-before-define": 2,
+    "new-cap": "warn",
+    "no-caller": "error",
+    "require-unicode-regexp": 2,
+    "no-unused-vars": "warn",
+    "no-undef": "error",
+    "no-shadow": "error",
+    "no-constant-condition": "error",
     "eqeqeq": 2,
-    "radix": 2
+    "radix": 2,
+    "no-dupe-keys": "error",
+    "use-isnan": "error"
   }
 }
