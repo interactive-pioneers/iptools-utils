@@ -8,6 +8,7 @@ coverage
 .grunt
 .lock-wscript
 .idea
+.vscode
 dist
 node_modules
 bower_components
